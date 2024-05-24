@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kalkulator Sederhana</title>
+    <script>
+      function penjumlahan(angka1, angka2) {
+        return angka1 + angka2;
+      }
+
+      function pengurangan(angka1, angka2) {
+        return angka1 - angka2;
+      }
+
+      function perkalian(angka1, angka2) {
+        return angka1 * angka2;
+      }
+
+      function pembagian(angka1, angka2) {
+        if (angka2 === 0) {
+          alert("Pembagian dengan nol tidak diperbolehkan!");
+          return null;
+        }
+        return angka1 / angka2;
+      }
+
+      function hitung() {
+        var angka1 = parseFloat(document.getElementById("angka1").value);
+        var angka2 = parseFloat(document.getElementById("angka2").value);
+        var operasi = document.getElementById("operasi").value;
+        var hasil;
+
+        switch (operasi) {
+          case "tambah":
+            hasil = penjumlahan(angka1, angka2);
+            break;
+          case "kurang":
+            hasil = pengurangan(angka1, angka2);
+            break;
+          case "kali":
+            hasil = perkalian(angka1, angka2);
+            break;
+          case "bagi":
+            hasil = pembagian(angka1, angka2);
+            break;
+          default:
+            alert("Operasi tidak valid");
+            return;
+        }
+
+        document.getElementById("hasil").innerText = "Hasil: " + hasil;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Kalkulator Sederhana</h1>
+    <label for="angka1">Angka 1:</label>
+    <input type="number" id="angka1" name="angka1" /><br /><br />
+
+    <label for="angka2">Angka 2:</label>
+    <input type="number" id="angka2" name="angka2" /><br /><br />
+
+    <label for="operasi">Operasi:</label>
+    <select id="operasi" name="operasi">
+      <option value="tambah">Tambah</option>
+      <option value="kurang">Kurang</option>
+      <option value="kali">Kali</option>
+      <option value="bagi">Bagi</option></select
+    ><br /><br />
+
+    <button onclick="hitung()">Hitung</button>
+
+    <h2 id="hasil">Hasil:</h2>
+  </body>
+</html>
