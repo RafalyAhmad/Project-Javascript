@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Counter</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"] {
+            width: calc(100% - 12px);
+            padding: 6px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .food-list {
+            margin-top: 20px;
+        }
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calorie Counter</h1>
+        <div class="form-group">
+            <label for="foodName">Food Name:</label>
+            <input type="text" id="foodName" placeholder="Enter food name">
+        </div>
+        <div class="form-group">
+            <label for="calories">Calories:</label>
+            <input type="number" id="calories" placeholder="Enter calories">
+        </div>
+        <button onclick="addFood()">Add Food</button>
+
+        <div class="food-list" id="foodList">
+            <!-- Food items will be dynamically added here -->
+        </div>
+
+        <div id="totalCalories">
+            <strong>Total Calories:</strong> <span id="total"></span>
+        </div>
+    </div>
+
+    <script>
+        let foods = [];
+        function addFood() {
+            let foodName = document.getElementById('foodName').value.trim();
+            let calories = parseInt(document.getElementById('calories').value);
+
+            if (foodName === '' || isNaN(calories) || calories <= 0) {
+                alert('Please enter valid food name and calories.');
+                return;
+            }
+
+            let food = {
+                name: foodName,
+                calories: calories
+            };
+
+            foods.push(food);
+
+            displayFoods();
+         
+            calculateTotalCalories();
+        }
+
+        function displayFoods() {
+            let foodList = document.getElementById('foodList');
+            foodList.innerHTML = ''; // Kosongkan daftar sebelum menambahkan ulang
+
+            foods.forEach((food, index) => {
+                let foodItem = document.createElement('div');
+                foodItem.classList.add('food-item');
+                foodItem.innerHTML = `
+                    <span>${food.name}</span>
+                    <span>${food.calories} calories</span>
+                `;
+                foodList.appendChild(foodItem);
+            });
+        }
+
+        function calculateTotalCalories() {
+            let totalCalories = 0;
+            foods.forEach(food => {
+                totalCalories += food.calories;
+            });
+
+            document.getElementById('total').textContent = totalCalories;
+        }
+    </script>
+</body>
+</html>
